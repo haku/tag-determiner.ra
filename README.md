@@ -4,6 +4,8 @@ Tag Determiner: RecognizeAnything
 This wraps [RecognizeAnything](https://github.com/xinyu1205/recognize-anything)
 in a docker container with the GRPC interface needed for mediatoad.
 
+This is Very Experimental - use at your own risk.
+
 Build
 -----
 
