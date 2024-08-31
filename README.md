@@ -12,6 +12,11 @@ this directory before building the image:
 https://huggingface.co/xinyu1205/recognize-anything-plus-model/blob/main/ram_plus_swin_large_14m.pth
 
 ```shell
+sha256sum ram_plus_swin_large_14m.pth
+497c178836ba66698ca226c7895317e6e800034be986452dbd2593298d50e87d  ram_plus_swin_large_14m.pth
+```
+
+```shell
 docker build -t tag-determiner.ra .
 ```
 
