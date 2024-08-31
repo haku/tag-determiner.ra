@@ -1,0 +1,26 @@
+// https://protobuf.dev/programming-guides/proto3/
+syntax = "proto3";
+
+option java_package = "com.vaguehope.dlnatoad.tagdeterminer";
+option java_outer_classname = "TagDeterminerProto";
+
+package tagdeterminer;
+
+service TagDeterminer {
+  rpc About (AboutRequest) returns (AboutReply) {}
+  rpc DetermineTags (stream DetermineTagsRequest) returns (DetermineTagsReply) {}
+}
+
+message AboutRequest {}
+message AboutReply {
+  string name = 1;
+  string tag_cls = 2;
+}
+
+message DetermineTagsRequest {
+  string mimetype = 1;
+  bytes content = 2;
+}
+message DetermineTagsReply {
+  repeated string tag = 1;
+}
