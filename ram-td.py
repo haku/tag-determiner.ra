@@ -4,6 +4,8 @@
 from concurrent import futures
 import grpc
 import io
+import os
+import sys
 import tagdeterminer_pb2
 import tagdeterminer_pb2_grpc
 
@@ -20,7 +22,7 @@ BLOCK_TAGS = [
     'man',
     ]
 
-PRETRAINED_MODEL = '/usr/src/app/ram_plus_swin_large_14m.pth'
+PRETRAINED_MODEL = os.environ['MODEL_PATH']
 IMAGE_SIZE = 384
 
 ram_device = None
@@ -73,6 +75,10 @@ class Determiner(tagdeterminer_pb2_grpc.TagDeterminerServicer):
 
 
 if __name__ == '__main__':
+  if not os.path.isfile(PRETRAINED_MODEL):
+    print('Not found: %s' % PRETRAINED_MODEL)
+    sys.exit(1)
+
   load_model()
   bind_to = "0.0.0.0:30033"
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))

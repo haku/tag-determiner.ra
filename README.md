@@ -9,9 +9,10 @@ This is Very Experimental - use at your own risk.
 Build
 -----
 
-You must download the model file `ram_plus_swin_large_14m.pth` and place it in
-this directory before building the image:
-https://huggingface.co/xinyu1205/recognize-anything-plus-model/blob/main/ram_plus_swin_large_14m.pth
+You must download the model file
+[`ram_plus_swin_large_14m.pth`](https://huggingface.co/xinyu1205/recognize-anything-plus-model/blob/main/ram_plus_swin_large_14m.pth)
+and set the envvar `MODEL_PATH` to point to it from inside the container.
+
 
 ```shell
 sha256sum ram_plus_swin_large_14m.pth
@@ -28,7 +29,14 @@ Test
 ----
 
 ```shell
-docker run -it --rm -p 127.0.0.1:30033:30033 --name tag-determiner.ra tag-determiner.ra
+docker run \
+  --mount 'type=bind,source=./model,destination=/model' \
+  --env MODEL_PATH='/model/ram_plus_swin_large_14m.pth' \
+  -it \
+  --rm \
+  -p 127.0.0.1:30033:30033 \
+  --name tag-determiner.ra \
+  tag-determiner.ra
 docker exec -it tag-determiner.ra bash
 ```
 
@@ -36,7 +44,12 @@ Run
 ---
 
 ```shell
-docker run -p 127.0.0.1:30033:30033 --name tag-determiner.ra tag-determiner.ra
+docker run \
+  --mount 'type=bind,source=./model,destination=/model' \
+  --env MODEL_PATH='/model/ram_plus_swin_large_14m.pth' \
+  -p 127.0.0.1:30033:30033 \
+  --name tag-determiner.ra \
+  tag-determiner.ra
 ```
 
 Dev
