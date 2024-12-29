@@ -3,8 +3,7 @@ FROM python:3.10-bookworm
 
 WORKDIR /usr/src/app
 
-RUN git clone https://github.com/xinyu1205/recognize-anything.git
-RUN pip install -e recognize-anything/
+RUN pip install git+https://github.com/xinyu1205/recognize-anything.git
 
 COPY requirements.txt *.py *.pyi *.proto ./
 RUN pip install --no-cache-dir -r requirements.txt
